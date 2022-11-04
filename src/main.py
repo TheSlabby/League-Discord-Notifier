@@ -8,7 +8,7 @@ HOOK_URL = open('.key', 'r').readlines()[1].strip()
 players = [
     'TheSlabby', 'TheStair', 'hgihy', 'zyraonetrick', 'JonStory',
     'LaxusWho', 'faineant24', 'Zombieslasher5', 'JJKINGX', '4LT4R',
-    'cvjwqnri', 'Shanerman101', 'PeteTheWard', 
+    'cvjwqnri', 'Shanerman101', 'PeteTheWard', 'Xiusoniell', 
 ]
 
 if __name__ == '__main__':
