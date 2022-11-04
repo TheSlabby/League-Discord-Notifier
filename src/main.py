@@ -1,5 +1,6 @@
 # main python file
-import requests, json, riotapi, data
+import requests, json, sys
+import riotapi, data # custom libraries
 
 UPDATE = True
 MATCHES_TO_UPDATE = 3
@@ -16,25 +17,28 @@ if __name__ == '__main__':
 
     # check last 3 matches for each player to see if there are any new matches to add
     if UPDATE:
-        for player in players:
-            print('Checking matches for ' + player)
-            id = riotapi.get_id(player)
-            matches = riotapi.get_matches(id, MATCHES_TO_UPDATE)
-            for match in matches:
-                matchData = riotapi.get_match(match)
-                if data.update_match(match, matchData):
-                    playerData = data.get_player_data(matchData, player)
-                    msg = '*' + player + ' just played a match:*\n'
-                    msg += 'Champion: **' + playerData['championName'] + '**\n'
-                    msg += 'KDA: **' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + '**\n'
-                    msg += 'Damage: **' + str(playerData['totalDamageDealtToChampions']) + '**\n'
-                    msg += 'Gold: **' + str(playerData['goldEarned']) + '**\n'
-                    msg += 'Result: **' + ('Victory' if playerData['win'] else 'Defeat') + '**\n'
+        try:
+            for player in players:
+                print('Checking matches for ' + player)
+                id = riotapi.get_id(player)
+                matches = riotapi.get_matches(id, MATCHES_TO_UPDATE)
+                for match in matches:
+                    matchData = riotapi.get_match(match)
+                    if data.update_match(match, matchData):
+                        playerData = data.get_player_data(matchData, player)
+                        msg = '*' + player + ' just played a match:*\n'
+                        msg += 'Champion: **' + playerData['championName'] + '**\n'
+                        msg += 'KDA: **' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + '**\n'
+                        msg += 'Damage: **' + str(playerData['totalDamageDealtToChampions']) + '**\n'
+                        msg += 'Gold: **' + str(playerData['goldEarned']) + '**\n'
+                        msg += 'Result: **' + ('Victory' if playerData['win'] else 'Defeat') + '**\n'
 
-                    # send webhook to discord >:)
-                    obj = json.loads(json.dumps({'content': msg}))
-                    requests.post(HOOK_URL, data=obj)
-                    print(msg)
+                        # send webhook to discord >:)
+                        obj = json.loads(json.dumps({'content': msg}))
+                        requests.post(HOOK_URL, data=obj)
+                        print(msg)
+        except KeyboardInterrupt:
+            print('cancelled - ctrl+c\n\n')
 
     print('Total games:', len(data.read('data.json')))
 
