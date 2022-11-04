@@ -5,11 +5,7 @@ UPDATE = True
 MATCHES_TO_UPDATE = 3
 HOOK_URL = open('.key', 'r').readlines()[1].strip()
 
-players = [
-    'TheSlabby', 'TheStair', 'hgihy', 'zyraonetrick', 'JonStory',
-    'LaxusWho', 'faineant24', 'Zombieslasher5', 'JJKINGX', '4LT4R',
-    'cvjwqnri', 'Shanerman101', 'PeteTheWard', 'Xiusoniell', 
-]
+players = open('players.config', 'r').read().splitlines()
 
 if __name__ == '__main__':
     # create data.json if it doesn't exist
