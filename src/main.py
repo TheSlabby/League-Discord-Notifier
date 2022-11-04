@@ -1,6 +1,9 @@
 # main python file
 import requests, json, riotapi, data, time
 
+UPDATE = False
+MATCHES_TO_UPDATE = 3
+
 players = [
     'TheSlabby', 'TheStair', 'hgihy', 'zyraonetrick', 'JonStory',
     'LaxusWho', 'faineant24', 'Zombieslasher5', 'JJKINGX', '4LT4R',
@@ -15,13 +18,14 @@ if __name__ == '__main__':
         data.write('data.json', {})
 
     # check last 3 matches for each player to see if there are any new matches to add
-    for player in players:
-        print('Checking matches for ' + player)
-        id = riotapi.get_id(player)
-        matches = riotapi.get_matches(id, 3)
-        for match in matches:
-            data.update_match(match, riotapi.get_match(match))
-    
+    if UPDATE:
+        for player in players:
+            print('Checking matches for ' + player)
+            id = riotapi.get_id(player)
+            matches = riotapi.get_matches(id, MATCHES_TO_UPDATE)
+            for match in matches:
+                data.update_match(match, riotapi.get_match(match))
+
     print('Total games:', len(data.read('data.json')))
 
     # get all matches for each player

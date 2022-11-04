@@ -6,7 +6,7 @@ def read(fileName):
     return json.load(open(fileName, 'r'))
 
 def write(fileName: str, data):
-    json.dump(data, open(fileName, 'w'), indent=4)
+    json.dump(data, open(fileName, 'w'))
 
 def update_match(match, data):
     jsonData = read(FILE_NAME)
@@ -25,5 +25,6 @@ def get_matches(player):
         for summoner in match['info']['participants']:
             if summoner['summonerName'] == player:
                 matches.append(match)
+                break
     
     return matches
