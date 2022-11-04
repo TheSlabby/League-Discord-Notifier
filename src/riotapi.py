@@ -1,7 +1,7 @@
 # interacts with the riot league api
 import requests
 
-KEY = open('.key', 'r').readline()
+KEY = open('.key', 'r').readline().strip()
 headers = {
     'X-Riot-Token': KEY
 }
