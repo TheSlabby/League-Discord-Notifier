@@ -1,3 +1,4 @@
+# interacts with the riot league api
 import requests
 
 KEY = open('.key', 'r').readline()
@@ -13,10 +14,11 @@ def get_id(name):
 def get_matches(id, count):
     url = 'https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/' + id + '/ids?start=0&count=' + str(count)
     response = requests.get(url, headers=headers)
-    print(response.json())
     return response.json()
 
 def get_match(id):
     url = 'https://americas.api.riotgames.com/lol/match/v5/matches/' + id
     response = requests.get(url, headers=headers)
+    if response.status_code == 429:
+        print('Rate limit exceeded :(')
     return response.json()
