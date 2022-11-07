@@ -24,7 +24,7 @@ def fix_data():
     for key, match in jsonData.items():
         if not match.get('info'):
             print('Found corrupted match:', key)
-            del read(FILE_NAME)[key]
+            del jsonData[key]
     
     write(FILE_NAME, jsonData)
 
