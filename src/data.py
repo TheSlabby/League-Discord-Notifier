@@ -22,7 +22,7 @@ def update_match(match, data):
 def fix_data():
     jsonData = read(FILE_NAME)
     for key, match in jsonData.items():
-        if not match['info']:
+        if not match.get('info'):
             print('Found corrupted match:', key)
             del read(FILE_NAME)[key]
     
