@@ -21,12 +21,13 @@ def update_match(match, data):
 
 def fix_data():
     jsonData = read(FILE_NAME)
+    fixedData = jsonData.copy()
     for key, match in jsonData.items():
         if not match.get('info'):
             print('Found corrupted match:', key)
-            del jsonData[key]
+            del fixedData[key]
     
-    write(FILE_NAME, jsonData)
+    write(FILE_NAME, fixedData)
 
 def get_player_data(match, player):
     for summoner in match['info']['participants']:
