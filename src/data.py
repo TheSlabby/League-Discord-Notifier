@@ -19,6 +19,15 @@ def update_match(match, data):
         return True
     return False
 
+def fix_data():
+    jsonData = read(FILE_NAME)
+    for key, match in jsonData.items():
+        if not match['info']:
+            print('Found corrupted match:', key)
+            del read(FILE_NAME)[key]
+    
+    write(FILE_NAME, jsonData)
+
 def get_player_data(match, player):
     for summoner in match['info']['participants']:
         if summoner['summonerName'] == player:

@@ -42,6 +42,8 @@ if __name__ == '__main__':
 
     print('Total games:', len(data.read('data.json')))
 
+    data.fix_data()
+
     # get all matches for each player
     for player in players:
         kills = 0
