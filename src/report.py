@@ -29,10 +29,10 @@ if __name__ == '__main__':
                 deaths += playerData['deaths']
                 timeInGame += match['info']['gameDuration']
 
-                msg += playerData['championName'] + ' - ' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + ' - ' + ('Victory' if win else 'Defeat') + '\n'
+                # msg += playerData['championName'] + ' - ' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + ' - ' + ('Victory' if win else 'Defeat') + '\n'
         
         if totalGames > 0:
-            msg += '\nTotal Games: ' + str(totalGames) + ' - KDA: ' + str(kills) + '/' + str(deaths) + '/' + str(assists)
+            msg += 'Total Games: ' + str(totalGames) + ' - KDA: ' + str(kills) + '/' + str(deaths) + '/' + str(assists)
             msg += ' - Winrate: ' + str((wins / (wins + losses)) * 100)[:2] + '% - Time Played: ' + str(int(timeInGame / 60)) + ' Minutes'
             msg += '\n\n'
             report += msg
