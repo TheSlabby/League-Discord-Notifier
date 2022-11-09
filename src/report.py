@@ -1,7 +1,8 @@
 import data
-import time, requests
+import time, requests, json
 
 players = open('players.config', 'r').read().splitlines()
+HOOK_URL = open('.key', 'r').readlines()[1].strip()
 
 if __name__ == '__main__':
     report = ''
@@ -30,12 +31,14 @@ if __name__ == '__main__':
 
                 msg += playerData['championName'] + ' - ' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + ' - ' + ('Victory' if win else 'Defeat') + '\n'
         
-        # send webhook to discord >:)
         if totalGames > 0:
             msg += '\nTotal Games: ' + str(totalGames) + ' - KDA: ' + str(kills) + '/' + str(deaths) + '/' + str(assists)
             msg += ' - Winrate: ' + str((wins / (wins + losses)) * 100)[:2] + '% - Time Played: ' + str(int(timeInGame / 60)) + ' Minutes'
             msg += '\n\n'
 
-            report += msg
-    
-    print(report)
+    if len(report) > 0:
+        print('Sending report to Discord...')
+        obj = json.loads(json.dumps({'content': report}))
+        requests.post(HOOK_URL, data=obj)
+    else:
+        print('nothing to update')
