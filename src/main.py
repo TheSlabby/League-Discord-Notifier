@@ -1,9 +1,9 @@
 # main python file
 import requests, json, sys
-import riotapi, data # custom libraries
+import riotapi, data, discordhook # custom libraries
 
 UPDATE = True
-MATCHES_TO_UPDATE = 3
+MATCHES_TO_UPDATE = 5
 HOOK_URL = open('.key', 'r').readlines()[1].strip()
 
 players = open('players.config', 'r').read().splitlines()
@@ -26,17 +26,8 @@ if __name__ == '__main__':
                     matchData = riotapi.get_match(match)
                     if data.update_match(match, matchData):
                         playerData = data.get_player_data(matchData, player)
-                        msg = '*' + player + ' just played a match:*\n'
-                        msg += 'Champion: **' + playerData['championName'] + '**\n'
-                        msg += 'KDA: **' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + '**\n'
-                        msg += 'Damage: **' + str(playerData['totalDamageDealtToChampions']) + '**\n'
-                        msg += 'Gold: **' + str(playerData['goldEarned']) + '**\n'
-                        msg += 'Result: **' + ('Victory' if playerData['win'] else 'Defeat') + '**\n'
-
-                        # send webhook to discord >:)
-                        obj = json.loads(json.dumps({'content': msg}))
-                        requests.post(HOOK_URL, data=obj)
-                        print(msg)
+                        embed = discordhook.match_embed(matchData, player)
+                        discordhook.send_hook('', embed)
         except KeyboardInterrupt:
             print('cancelled - ctrl+c\n\n')
 

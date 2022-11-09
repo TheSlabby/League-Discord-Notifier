@@ -22,3 +22,7 @@ def get_match(id):
     if response.status_code == 429:
         print('Rate limit exceeded :(')
     return response.json()
+
+def get_champion_image_url(id):
+    url = 'http://ddragon.leagueoflegends.com/cdn/11.6.1/img/champion/' + id + '.png'
+    return url
