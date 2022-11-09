@@ -3,7 +3,7 @@ import requests, json, sys
 import riotapi, data, discordhook # custom libraries
 
 UPDATE = True
-MATCHES_TO_UPDATE = 5
+MATCHES_TO_UPDATE = 2
 HOOK_URL = open('.key', 'r').readlines()[1].strip()
 
 players = open('players.config', 'r').read().splitlines()
