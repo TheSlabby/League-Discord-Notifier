@@ -9,7 +9,7 @@ if __name__ == '__main__':
     print('Getting report for players...')
     for player in players:
         totalGames, kills, deaths, assists, wins, losses, timeInGame = 0, 0, 0, 0, 0, 0, 0
-        msg = 'Daily Report for ' + player + ':\n'
+        msg = '**Daily Report for ' + player + ':**\n'
         matches = data.get_matches(player)
         for match in matches:
             created = match['info']['gameCreation']
