@@ -38,8 +38,9 @@ if __name__ == '__main__':
             report += msg
 
     if len(report) > 0:
-        print('Sending report to Discord...')
+        print('Sending report to Discord (file size:' + str(len(report)) + ') ...')
         obj = json.loads(json.dumps({'content': report}))
         requests.post(HOOK_URL, data=obj)
+        print(report)
     else:
         print('nothing to update')
