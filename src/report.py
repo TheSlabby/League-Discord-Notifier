@@ -5,7 +5,6 @@ players = open('players.config', 'r').read().splitlines()
 HOOK_URL = open('.key', 'r').readlines()[1].strip()
 
 if __name__ == '__main__':
-    report = ''
     print('Getting report for players...')
     for player in players:
         totalGames, kills, deaths, assists, wins, losses, timeInGame = 0, 0, 0, 0, 0, 0, 0
@@ -29,18 +28,12 @@ if __name__ == '__main__':
                 deaths += playerData['deaths']
                 timeInGame += match['info']['gameDuration']
 
-                # msg += playerData['championName'] + ' - ' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + ' - ' + ('Victory' if win else 'Defeat') + '\n'
+                msg += playerData['championName'] + ' - ' + str(playerData['kills']) + '/' + str(playerData['deaths']) + '/' + str(playerData['assists']) + ' - ' + ('Victory' if win else 'Defeat') + '\n'
         
         if totalGames > 0:
             msg += 'Total Games: ' + str(totalGames) + ' - KDA: ' + str(kills) + '/' + str(deaths) + '/' + str(assists)
             msg += ' - Winrate: ' + str((wins / (wins + losses)) * 100)[:2] + '% - Time Played: ' + str(int(timeInGame / 60)) + ' Minutes'
             msg += '\n\n'
-            report += msg
-
-    if len(report) > 0:
-        print('Sending report to Discord (file size:' + str(len(report)) + ') ...')
-        obj = json.loads(json.dumps({'content': report}))
-        requests.post(HOOK_URL, data=obj)
-        print(report)
-    else:
-        print('nothing to update')
+            # send webhoo
+            obj = json.loads(json.dumps({'content': msg}))
+            requests.post(HOOK_URL, data=obj)
