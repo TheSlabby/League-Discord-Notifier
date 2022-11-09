@@ -35,6 +35,7 @@ if __name__ == '__main__':
             msg += '\nTotal Games: ' + str(totalGames) + ' - KDA: ' + str(kills) + '/' + str(deaths) + '/' + str(assists)
             msg += ' - Winrate: ' + str((wins / (wins + losses)) * 100)[:2] + '% - Time Played: ' + str(int(timeInGame / 60)) + ' Minutes'
             msg += '\n\n'
+            report += msg
 
     if len(report) > 0:
         print('Sending report to Discord...')
