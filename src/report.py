@@ -32,8 +32,8 @@ if __name__ == '__main__':
         
         if totalGames > 0:
             msg += '\nTotal Games: ' + str(totalGames) + ' - KDA: ' + str(kills) + '/' + str(deaths) + '/' + str(assists)
-            msg += ' - Winrate: ' + str((wins / (wins + losses)) * 100)[:2] + '% - Time Played: ' + str(int(timeInGame / 60)) + ' Minutes'
-            msg += '\n\n---------------------------------------'
+            msg += ' - Winrate: ' + str(int((wins / (wins + losses)) * 100)) + '% - Time Played: ' + str(int(timeInGame / 60)) + ' Minutes'
+            msg += '\n----------------------------------------------------------------'
             # send webhoo
             obj = json.loads(json.dumps({'content': msg}))
             requests.post(HOOK_URL, data=obj)
