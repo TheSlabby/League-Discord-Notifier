@@ -25,9 +25,12 @@ if __name__ == '__main__':
                 for match in matches:
                     matchData = riotapi.get_match(match)
                     if data.update_match(match, matchData):
-                        playerData = data.get_player_data(matchData, player)
-                        embed = discordhook.match_embed(matchData, player)
-                        discordhook.send_hook('', embed)
+                        # find all players in match
+                        for player in players:
+                            playerData = data.get_player_data(matchData, player)
+                            if playerData:
+                                embed = discordhook.match_embed(matchData, player)
+                                discordhook.send_hook('', embed)
         except KeyboardInterrupt:
             print('cancelled - ctrl+c\n\n')
 
