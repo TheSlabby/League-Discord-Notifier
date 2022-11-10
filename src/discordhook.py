@@ -17,7 +17,7 @@ def match_embed(match, player):
     if playerData['firstBloodKill']:
         description += '*You got First Blood!*\n'
     description += 'Total Damage: ' + str(playerData['totalDamageDealtToChampions']) + '\n'
-    description += 'CS: ' + str(playerData['totalMinionsKilled']) + '\n'
+    description += 'CS: ' + str(playerData['totalMinionsKilled'] + playerData['neutralMinionsKilled']) + '\n'
     description += 'Gold: ' + str(playerData['goldEarned']) + '\n'
     description += 'Vision Score: ' + str(playerData['visionScore']) + '\n'
     description += '**' + ('Victory' if win else 'Defeat') + '**'
